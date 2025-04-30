@@ -1,8 +1,8 @@
 # Roadmap del Proyecto
 
-| Épica                | Historia                            | Tarea                        | Prioridad | Estado (Kanban) |
-|----------------------|-------------------------------------|------------------------------|-----------|-----------------|
-|                      |                                     |                              |           |                 |
+| Épica                | Historia                            | Tarea                               | Prioridad | Estado (Kanban) |
+|----------------------|-------------------------------------|-------------------------------------|-----------|-----------------|
+| E-01                 | Setup inicial del repositorio       | RX-01, RX-02, RX-03, RX-04, RX-05   | Alta      | Completado      |
 
 
 [Épica]: <> (Una gran funcionalidad o meta. ej: "Gestión de usuarios")
