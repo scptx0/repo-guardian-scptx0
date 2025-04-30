@@ -10,6 +10,11 @@ class GitObject:
     content: bytes
     sha: str
 
+def compute_git_hash(obj_type: str, content: bytes) -> str:
+    header = f"{obj_type} {len(content)}".encode()
+    full_data = header + b'\x00' + content
+    return hashlib.sha1(full_data).hexdigest()
+
 def read_loose(path: Path, use_sha1=False) -> GitObject:
     """
     Lee un objeto suelto (loose) de Git y valida su hash.
@@ -25,7 +30,7 @@ def read_loose(path: Path, use_sha1=False) -> GitObject:
         compressed = f.read()
 
     try:
-        decompressed = zlib.decompress(compressed)
+        decompressed = zlib.decompress(compressed) # Bufer binario
     except zlib.error as e:
         raise ValueError(f"Error al descomprimir el objeto: {e}")
 
@@ -46,9 +51,7 @@ def read_loose(path: Path, use_sha1=False) -> GitObject:
     if len(content) != size:
         raise ValueError(f"Tamaño declarado ({size}) no coincide con tamaño real ({len(content)})")
 
-    full_data = header.encode() + b'\x00' + content
-    algo = hashlib.sha1 if use_sha1 else hashlib.sha256
-    sha = algo(full_data).hexdigest()
+    sha = compute_git_hash(obj_type, content)
 
     # Validar que el SHA coincide con la ruta del archivo
     expected_sha = path.parent.name + path.name
