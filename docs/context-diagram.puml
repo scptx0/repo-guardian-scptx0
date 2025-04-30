@@ -1,0 +1,16 @@
+@startuml
+title Diagrama de Contexto: Repo-Guardian
+
+actor Usuario
+
+rectangle "Repo-Guardian"
+
+rectangle "Repositorio Git\n(local)" as GitRepo
+
+cloud "GitHub API" as GitHub
+
+Usuario --> "Repo-Guardian" : Usa CLI
+"Repo-Guardian" --> GitRepo : Commits, ramas, etc
+"Repo-Guardian" --> GitHub : Consulta y envía datos
+
+@enduml
